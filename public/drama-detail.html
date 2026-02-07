@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail Drama - FlickReels</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/layout.css">
+    <link rel="stylesheet" href="/css/loading.css">
+    <link rel="stylesheet" href="/css/responsive.css">
+    <link rel="stylesheet" href="/css/player.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-brand">
+                <a href="/" class="logo">🎬 FlickReels</a>
+            </div>
+            <div class="navbar-menu">
+                <a href="/" class="nav-link">Home</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-container">
+        <div class="container">
+            <!-- Drama Detail -->
+            <div id="dramaDetailLoader" class="loader"></div>
+            
+            <div id="dramaDetail" class="drama-detail" style="display: none;">
+                <!-- Header -->
+                <div class="drama-header">
+                    <img id="dramaPoster" class="drama-poster" alt="Poster">
+                    <div class="drama-info">
+                        <h1 id="dramaTitle"></h1>
+                        <div class="drama-meta">
+                            <span id="dramaYear" class="meta-item">-</span>
+                            <span id="dramaGenre" class="meta-item">-</span>
+                        </div>
+                        <p id="dramaDescription" class="drama-description"></p>
+                        <div class="drama-stats">
+                            <div class="stat">
+                                <span class="stat-label">Status:</span>
+                                <span id="dramaStatus" class="stat-value">-</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-label">Total Episode:</span>
+                                <span id="episodeCount" class="stat-value">-</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Episodes Section -->
+                <div class="episodes-section">
+                    <h2 class="section-title">📺 Daftar Episode</h2>
+                    
+                    <!-- Episode Filter -->
+                    <div class="episode-filter">
+                        <input 
+                            type="number" 
+                            id="episodeFilter" 
+                            class="filter-input" 
+                            placeholder="Cari episode nomor..."
+                            min="1"
+                        >
+                        <button id="filterBtn" class="btn btn-secondary">Filter</button>
+                        <button id="clearFilterBtn" class="btn btn-secondary">Bersihkan</button>
+                    </div>
+
+                    <!-- Episodes Grid -->
+                    <div id="episodesList" class="episodes-grid">
+                        <!-- Dimuat oleh JavaScript -->
+                    </div>
+                    <div id="episodesLoader" class="loader"></div>
+                </div>
+
+                <!-- Video Player -->
+                <div id="playerSection" class="player-section" style="display: none;">
+                    <div class="player-header">
+                        <h3 id="playerTitle"></h3>
+                        <button class="close-player" onclick="closePlayer()">✕</button>
+                    </div>
+                    <div class="video-player">
+                        <video 
+                            id="videoPlayer" 
+                            class="video" 
+                            controls
+                            autoplay
+                            poster="https://via.placeholder.com/1280x720"
+                        >
+                            <source id="videoSource" type="video/mp4">
+                            Browser Anda tidak mendukung video player
+                        </video>
+                    </div>
+                    <div class="player-info">
+                        <p id="playerDescription"></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Error State -->
+            <div id="errorState" class="error-state" style="display: none;">
+                <h2>❌ Drama Tidak Ditemukan</h2>
+                <p id="errorStateMessage">Silakan coba kembali ke halaman utama</p>
+                <a href="/" class="btn btn-primary">Kembali ke Home</a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 FlickReels. Semua hak dilindungi.</p>
+        </div>
+    </footer>
+
+    <script src="/js/api.js"></script>
+    <script src="/js/player.js"></script>
+    <script src="/js/detail.js"></script>
+</body>
+</html>
