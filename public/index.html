@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlickReels - Drama Cina Terbaik</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/loading.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-brand">
+                <h1 class="logo">🎬 FlickReels</h1>
+            </div>
+            <div class="navbar-menu">
+                <a href="/" class="nav-link active">Home</a>
+                <a href="#trending" class="nav-link">Trending</a>
+            </div>
+            <div class="search-box">
+                <input 
+                    type="text" 
+                    id="searchInput" 
+                    class="search-input" 
+                    placeholder="Cari drama..."
+                    autocomplete="off"
+                >
+                <button id="searchBtn" class="search-btn">🔍</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-container">
+        <div class="container">
+            <!-- Trending Section -->
+            <section id="trendingSection" class="section">
+                <h2 class="section-title">🔥 Drama Trending</h2>
+                <div id="trendingList" class="dramas-grid">
+                    <!-- Dimuat oleh JavaScript -->
+                </div>
+                <div id="trendingLoader" class="loader"></div>
+            </section>
+
+            <!-- Search Results Section -->
+            <section id="searchSection" class="section" style="display: none;">
+                <div class="search-header">
+                    <h2 class="section-title">Hasil Pencarian: <span id="searchQuery"></span></h2>
+                    <button id="backBtn" class="back-btn">← Kembali</button>
+                </div>
+                <div id="searchResults" class="dramas-grid">
+                    <!-- Dimuat oleh JavaScript -->
+                </div>
+                <div id="searchLoader" class="loader"></div>
+                <div class="pagination-controls">
+                    <button id="prevPage" class="btn btn-secondary" disabled>← Halaman Sebelumnya</button>
+                    <span id="pageInfo" class="page-info">Halaman 1</span>
+                    <button id="nextPage" class="btn btn-secondary">Halaman Berikutnya →</button>
+                </div>
+            </section>
+
+            <!-- Next Home Section -->
+            <section id="nextHomeSection" class="section">
+                <h2 class="section-title">📺 Rekomendasi Terbaru</h2>
+                <div id="nextHomeList" class="dramas-grid">
+                    <!-- Dimuat oleh JavaScript -->
+                </div>
+                <div id="nextHomeLoader" class="loader"></div>
+                <div class="pagination-controls" style="margin-top: 30px;">
+                    <button id="prevPageHome" class="btn btn-secondary" disabled>← Halaman Sebelumnya</button>
+                    <span id="pageInfoHome" class="page-info">Halaman 1</span>
+                    <button id="nextPageHome" class="btn btn-secondary">Halaman Berikutnya →</button>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 FlickReels. Semua hak dilindungi.</p>
+            <p>Streaming drama cina berkualitas tinggi</p>
+        </div>
+    </footer>
+
+    <!-- Error Modal -->
+    <div id="errorModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3>Terjadi Kesalahan</h3>
+            <p id="errorMessage"></p>
+            <button class="btn btn-primary" onclick="closeErrorModal()">Tutup</button>
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

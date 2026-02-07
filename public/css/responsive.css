@@ -1,0 +1,299 @@
+/* Tablets */
+@media (max-width: 1024px) {
+    .dramas-grid {
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        gap: calc(var(--spacing-unit) * 2);
+    }
+
+    .navbar .container {
+        flex-wrap: wrap;
+        gap: calc(var(--spacing-unit) * 1);
+    }
+
+    .navbar-menu {
+        order: 3;
+        flex-basis: 100%;
+        gap: calc(var(--spacing-unit) * 2);
+    }
+
+    .search-box {
+        order: 2;
+    }
+
+    .search-input {
+        min-width: 150px;
+    }
+
+    .drama-header {
+        grid-template-columns: 200px 1fr;
+        gap: calc(var(--spacing-unit) * 2);
+        padding: calc(var(--spacing-unit) * 2);
+    }
+
+    .drama-poster {
+        width: 200px;
+        height: 280px;
+    }
+
+    .drama-info h1 {
+        font-size: 1.5rem;
+    }
+
+    .episodes-grid {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        gap: calc(var(--spacing-unit) * 1.5);
+    }
+}
+
+/* Mobile Devices */
+@media (max-width: 768px) {
+    :root {
+        --spacing-unit: 6px;
+    }
+
+    .dramas-grid {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        gap: calc(var(--spacing-unit) * 1.5);
+    }
+
+    .navbar {
+        padding: 0;
+    }
+
+    .navbar .container {
+        flex-direction: column;
+        padding: calc(var(--spacing-unit) * 1) var(--spacing-unit);
+        gap: calc(var(--spacing-unit) * 1);
+    }
+
+    .logo {
+        font-size: 1.2rem;
+    }
+
+    .navbar-brand {
+        width: 100%;
+    }
+
+    .navbar-menu {
+        order: 3;
+        flex-basis: 100%;
+        justify-content: space-around;
+        gap: calc(var(--spacing-unit) * 1);
+    }
+
+    .nav-link {
+        font-size: 0.9rem;
+    }
+
+    .search-box {
+        width: 100%;
+        order: 2;
+    }
+
+    .search-input {
+        flex: 1;
+        min-width: auto;
+    }
+
+    .search-btn {
+        padding: calc(var(--spacing-unit) * 0.75) calc(var(--spacing-unit) * 1);
+    }
+
+    /* Main Container */
+    .main-container {
+        padding: calc(var(--spacing-unit) * 2) 0;
+        min-height: calc(100vh - 150px);
+    }
+
+    /* Section Title */
+    .section-title {
+        font-size: 1.3rem;
+        margin-bottom: calc(var(--spacing-unit) * 1.5);
+    }
+
+    /* Drama Header */
+    .drama-header {
+        grid-template-columns: 1fr;
+        gap: calc(var(--spacing-unit) * 1.5);
+        padding: calc(var(--spacing-unit) * 1.5);
+    }
+
+    .drama-poster {
+        width: 100%;
+        height: 300px;
+        aspect-ratio: auto;
+    }
+
+    .drama-info h1 {
+        font-size: 1.3rem;
+    }
+
+    .drama-meta {
+        gap: calc(var(--spacing-unit) * 1);
+    }
+
+    .meta-item {
+        font-size: 0.8rem;
+        padding: calc(var(--spacing-unit) * 0.4) calc(var(--spacing-unit) * 1);
+    }
+
+    .drama-stats {
+        grid-template-columns: 1fr;
+        padding: calc(var(--spacing-unit) * 1);
+        gap: calc(var(--spacing-unit) * 1);
+    }
+
+    /* Episodes Section */
+    .episodes-section {
+        padding: calc(var(--spacing-unit) * 1.5);
+    }
+
+    .episodes-grid {
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        gap: calc(var(--spacing-unit) * 1);
+    }
+
+    .episode-card {
+        padding: calc(var(--spacing-unit) * 1);
+    }
+
+    .episode-number {
+        font-size: 1rem;
+    }
+
+    .episode-title {
+        font-size: 0.75rem;
+    }
+
+    /* Player Section */
+    .player-section {
+        padding: calc(var(--spacing-unit) * 1);
+        margin-top: calc(var(--spacing-unit) * 1.5);
+    }
+
+    .player-header {
+        margin-bottom: calc(var(--spacing-unit) * 1);
+        padding-bottom: calc(var(--spacing-unit) * 1);
+    }
+
+    .player-header h3 {
+        font-size: 1rem;
+    }
+
+    /* Pagination */
+    .pagination-controls {
+        gap: calc(var(--spacing-unit) * 1);
+        margin: calc(var(--spacing-unit) * 2) 0;
+    }
+
+    .page-info {
+        min-width: 100px;
+        font-size: 0.9rem;
+    }
+
+    .btn {
+        padding: calc(var(--spacing-unit) * 0.75) calc(var(--spacing-unit) * 1.5);
+        font-size: 0.85rem;
+    }
+
+    /* Search Header */
+    .search-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: calc(var(--spacing-unit) * 1);
+    }
+
+    .back-btn {
+        width: 100%;
+        text-align: center;
+    }
+
+    /* Modal */
+    .modal-content {
+        margin: calc(var(--spacing-unit) * 1);
+        padding: calc(var(--spacing-unit) * 1.5);
+    }
+
+    /* Footer */
+    .footer {
+        padding: calc(var(--spacing-unit) * 2) 0;
+    }
+
+    .footer p {
+        font-size: 0.85rem;
+    }
+
+    /* Episode Filter */
+    .episode-filter {
+        flex-direction: column;
+    }
+
+    .filter-input {
+        width: 100%;
+        min-width: auto;
+    }
+
+    .btn-secondary {
+        flex: 1;
+    }
+}
+
+/* Small Mobile Devices */
+@media (max-width: 480px) {
+    :root {
+        --spacing-unit: 4px;
+    }
+
+    .logo {
+        font-size: 1rem;
+    }
+
+    .section-title {
+        font-size: 1.1rem;
+    }
+
+    .drama-info h1 {
+        font-size: 1.1rem;
+    }
+
+    .dramas-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: calc(var(--spacing-unit) * 1);
+    }
+
+    .drama-poster {
+        height: 200px;
+    }
+
+    .episodes-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: calc(var(--spacing-unit) * 0.75);
+    }
+
+    .episode-card {
+        padding: calc(var(--spacing-unit) * 0.75);
+    }
+
+    .episode-number {
+        font-size: 0.9rem;
+    }
+
+    .episode-title {
+        font-size: 0.65rem;
+    }
+
+    .pagination-controls {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .btn {
+        width: 100%;
+        padding: calc(var(--spacing-unit) * 0.75) calc(var(--spacing-unit) * 1);
+        font-size: 0.8rem;
+    }
+
+    .modal-content {
+        max-width: 90%;
+    }
+}
