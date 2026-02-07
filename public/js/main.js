@@ -223,5 +223,5 @@ function viewDrama(dramaId) {
         return;
     }
     
-    window.location.href = `/drama/${dramaId}`;
+    window.location.href = `/public/drama-detail.html?id=${dramaId}`;
 }

@@ -4,9 +4,22 @@ let currentDramaId = null;
 let currentEpisodes = [];
 
 function getDramaIdFromURL() {
+    const params = new URLSearchParams(window.location.search);
+    const fromQuery = Number.parseInt(params.get('id'), 10);
+    if (!Number.isNaN(fromQuery) && fromQuery > 0) {
+        return fromQuery;
+    }
+
     const pathname = window.location.pathname;
     const match = pathname.match(/\/drama\/(\d+)/);
-    return match ? parseInt(match[1], 10) : null;
+    if (match && match[1]) {
+        const fromPath = Number.parseInt(match[1], 10);
+        if (!Number.isNaN(fromPath) && fromPath > 0) {
+            return fromPath;
+        }
+    }
+
+    return null;
 }
 
 function resolveEpisodeNumber(episode) {
