@@ -13,18 +13,40 @@ function hideLoader(element) {
     }
 }
 
+function resolveDramaId(drama) {
+    const candidates = [
+        drama?.id,
+        drama?.pk,
+        drama?.drama_id,
+        drama?.dramaId,
+        drama?.id_drama,
+        drama?.content_id
+    ];
+
+    for (const value of candidates) {
+        const parsed = Number.parseInt(value, 10);
+        if (!Number.isNaN(parsed) && parsed > 0) {
+            return parsed;
+        }
+    }
+
+    return null;
+}
+
 // Drama Card Template
 function createDramaCard(drama) {
     const title = drama.title || drama.name || 'Tanpa Judul';
     const poster = drama.poster_path || drama.poster || 'https://via.placeholder.com/180x270?text=No+Image';
     const year = drama.year || drama.release_date?.split('-')[0] || 'N/A';
-    const id = drama.id || drama.pk;
+    const id = resolveDramaId(drama);
+    const actionLabel = id ? 'Lihat Detail →' : 'Detail tidak tersedia';
+    const clickAction = id ? `viewDrama(${id})` : `showErrorModal('Detail drama tidak tersedia untuk item ini')`;
 
     return `
-        <div class="drama-card" onclick="viewDrama(${id})">
+        <div class="drama-card" onclick="${clickAction}">
             <img src="${poster}" alt="${title}" class="drama-poster" onerror="this.src='https://via.placeholder.com/180x270?text=Error'">
             <div class="drama-card-overlay">
-                <button class="drama-card-action">Lihat Detail →</button>
+                <button class="drama-card-action">${actionLabel}</button>
             </div>
             <div class="drama-card-content">
                 <h3 class="drama-title">${title}</h3>
