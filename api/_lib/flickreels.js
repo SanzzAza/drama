@@ -31,13 +31,62 @@ const formatPagination = (currentPage, itemCount) => {
   };
 };
 
+
+const extractDramaIdFromValue = (value) => {
+  if (value === null || value === undefined) return null;
+
+  const direct = Number.parseInt(value, 10);
+  if (!Number.isNaN(direct) && direct > 0) return direct;
+  if (typeof value !== 'string') return null;
+
+  const patterns = [/\/drama\/(\d+)/i, /(?:^|[^\d])(\d{2,})(?:[^\d]|$)/];
+  for (const pattern of patterns) {
+    const match = value.match(pattern);
+    if (match && match[1]) {
+      const parsed = Number.parseInt(match[1], 10);
+      if (!Number.isNaN(parsed) && parsed > 0) return parsed;
+    }
+  }
+
+  return null;
+};
+
+const resolveDramaId = (drama) => {
+  if (!drama || typeof drama !== 'object') return null;
+
+  const keys = [
+    'id', 'pk', 'drama_id', 'dramaId', 'id_drama', 'content_id', 'movie_id', 'vod_id',
+    'url', 'link', 'detail_url', 'drama_url', 'path', 'share_url', 'web_url', 'redirect_url', 'deeplink', 'jump_url'
+  ];
+
+  for (const key of keys) {
+    const resolved = extractDramaIdFromValue(drama[key]);
+    if (resolved) return resolved;
+  }
+
+  for (const value of Object.values(drama)) {
+    const resolved = extractDramaIdFromValue(value);
+    if (resolved) return resolved;
+  }
+
+  return null;
+};
+
+const enrichDramasWithResolvedId = (dramas) => dramas.map((item) => {
+  if (!item || typeof item !== 'object') return item;
+  if (item.id && Number.parseInt(item.id, 10) > 0) return item;
+
+  const resolvedId = resolveDramaId(item);
+  return resolvedId ? { ...item, id: resolvedId } : item;
+});
+
 const normalizeListPayload = (payload) => {
-  if (Array.isArray(payload)) return payload;
+  if (Array.isArray(payload)) return enrichDramasWithResolvedId(payload);
   if (!payload || typeof payload !== 'object') return [];
 
-  if (Array.isArray(payload.data)) return payload.data;
-  if (Array.isArray(payload.results)) return payload.results;
-  if (Array.isArray(payload.items)) return payload.items;
+  if (Array.isArray(payload.data)) return enrichDramasWithResolvedId(payload.data);
+  if (Array.isArray(payload.results)) return enrichDramasWithResolvedId(payload.results);
+  if (Array.isArray(payload.items)) return enrichDramasWithResolvedId(payload.items);
   return [];
 };
 
@@ -101,5 +150,6 @@ module.exports = {
   normalizeListPayload,
   normalizeDramaDetail,
   uiPageToApiPage,
-  fetchFromFlickReels
+  fetchFromFlickReels,
+  resolveDramaId
 };

@@ -1,13 +1,61 @@
 const apiClient = require('../utils/api-client');
 const { formatResponse, formatPagination } = require('../utils/response-formatter');
 
+const extractDramaIdFromValue = (value) => {
+  if (value === null || value === undefined) return null;
+
+  const direct = Number.parseInt(value, 10);
+  if (!Number.isNaN(direct) && direct > 0) return direct;
+  if (typeof value !== 'string') return null;
+
+  const patterns = [/\/drama\/(\d+)/i, /(?:^|[^\d])(\d{2,})(?:[^\d]|$)/];
+  for (const pattern of patterns) {
+    const match = value.match(pattern);
+    if (match && match[1]) {
+      const parsed = Number.parseInt(match[1], 10);
+      if (!Number.isNaN(parsed) && parsed > 0) return parsed;
+    }
+  }
+
+  return null;
+};
+
+const resolveDramaId = (drama) => {
+  if (!drama || typeof drama !== 'object') return null;
+
+  const keys = [
+    'id', 'pk', 'drama_id', 'dramaId', 'id_drama', 'content_id', 'movie_id', 'vod_id',
+    'url', 'link', 'detail_url', 'drama_url', 'path', 'share_url', 'web_url', 'redirect_url', 'deeplink', 'jump_url'
+  ];
+
+  for (const key of keys) {
+    const resolved = extractDramaIdFromValue(drama[key]);
+    if (resolved) return resolved;
+  }
+
+  for (const value of Object.values(drama)) {
+    const resolved = extractDramaIdFromValue(value);
+    if (resolved) return resolved;
+  }
+
+  return null;
+};
+
 const normalizeListPayload = (payload) => {
-  if (Array.isArray(payload)) return payload;
+  const enrich = (list) => list.map((item) => {
+    if (!item || typeof item !== 'object') return item;
+    if (item.id && Number.parseInt(item.id, 10) > 0) return item;
+
+    const resolvedId = resolveDramaId(item);
+    return resolvedId ? { ...item, id: resolvedId } : item;
+  });
+
+  if (Array.isArray(payload)) return enrich(payload);
   if (!payload || typeof payload !== 'object') return [];
 
-  if (Array.isArray(payload.data)) return payload.data;
-  if (Array.isArray(payload.results)) return payload.results;
-  if (Array.isArray(payload.items)) return payload.items;
+  if (Array.isArray(payload.data)) return enrich(payload.data);
+  if (Array.isArray(payload.results)) return enrich(payload.results);
+  if (Array.isArray(payload.items)) return enrich(payload.items);
   return [];
 };
 

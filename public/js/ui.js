@@ -13,21 +13,73 @@ function hideLoader(element) {
     }
 }
 
+function extractDramaIdFromValue(value) {
+    if (value === null || value === undefined) return null;
+
+    const direct = Number.parseInt(value, 10);
+    if (!Number.isNaN(direct) && direct > 0) {
+        return direct;
+    }
+
+    if (typeof value !== 'string') return null;
+
+    const patterns = [
+        /\/drama\/(\d+)/i,
+        /(?:^|[^\d])(\d{2,})(?:[^\d]|$)/
+    ];
+
+    for (const pattern of patterns) {
+        const match = value.match(pattern);
+        if (match && match[1]) {
+            const parsed = Number.parseInt(match[1], 10);
+            if (!Number.isNaN(parsed) && parsed > 0) {
+                return parsed;
+            }
+        }
+    }
+
+    return null;
+}
+
 function resolveDramaId(drama) {
-    const candidates = [
+    const directCandidates = [
         drama?.id,
         drama?.pk,
         drama?.drama_id,
         drama?.dramaId,
         drama?.id_drama,
-        drama?.content_id
+        drama?.content_id,
+        drama?.movie_id,
+        drama?.vod_id
     ];
 
-    for (const value of candidates) {
-        const parsed = Number.parseInt(value, 10);
-        if (!Number.isNaN(parsed) && parsed > 0) {
-            return parsed;
-        }
+    for (const value of directCandidates) {
+        const resolved = extractDramaIdFromValue(value);
+        if (resolved) return resolved;
+    }
+
+    const urlCandidates = [
+        drama?.url,
+        drama?.link,
+        drama?.detail_url,
+        drama?.drama_url,
+        drama?.path,
+        drama?.share_url,
+        drama?.web_url,
+        drama?.redirect_url,
+        drama?.deeplink,
+        drama?.jump_url
+    ];
+
+    for (const value of urlCandidates) {
+        const resolved = extractDramaIdFromValue(value);
+        if (resolved) return resolved;
+    }
+
+    // Last resort: scan all string fields in object
+    for (const value of Object.values(drama || {})) {
+        const resolved = extractDramaIdFromValue(value);
+        if (resolved) return resolved;
     }
 
     return null;
@@ -82,7 +134,7 @@ function renderDramas(dramas, containerId) {
 function showErrorModal(message) {
     const modal = document.getElementById('errorModal');
     const errorMessage = document.getElementById('errorMessage');
-    
+
     if (modal && errorMessage) {
         errorMessage.textContent = message;
         modal.style.display = 'flex';
